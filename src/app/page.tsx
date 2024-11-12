@@ -1,13 +1,27 @@
 // app/page.tsx
-'use client';
+"use client";
 
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function HomePage() {
-  const { data: session } = useSession();
-  console.log("Session user:", session?.user.id);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
+  useEffect(() => {
+    // 當用戶已登入時，自動跳轉到群組頁面
+    if (status === "authenticated") {
+      router.push("/groups");
+    }
+  }, [status, router]);
 
+  // 加載中狀態
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  // 未登入時顯示的內容
   if (!session) {
     return (
       <div>
@@ -18,12 +32,5 @@ export default function HomePage() {
     );
   }
 
-  return (
-    <div>
-      <h1>Welcome, {session.user.name}</h1>
-      <p>Email: {session.user.email}</p>
-      <p>User ID: {session.user.id}</p>
-      <button onClick={() => signOut()}>Sign out</button>
-    </div>
-  );
+  return null; // 當已登入時不顯示此頁面內容
 }

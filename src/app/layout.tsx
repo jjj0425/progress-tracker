@@ -1,5 +1,5 @@
 // app/layout.tsx
-import ClientSessionProvider from '@/app/context/ClientSessionProvider'
+import ClientSessionProvider from "@/app/context/ClientSessionProvider";
 export default function RootLayout({
   children,
 }: {
@@ -8,9 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientSessionProvider>
-          {children}
-        </ClientSessionProvider>
+        <ClientSessionProvider>{children}</ClientSessionProvider>
       </body>
     </html>
   );

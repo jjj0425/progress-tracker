@@ -1,10 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NextAuth from "next-auth";
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import NextAuth, { DefaultSession } from "next-auth";
+import { JWT } from "next-auth/jwt";
 declare module "next-auth" {
   interface Session {
-    user: User & {
-      id: string
-    };
+    user: {
+      id: string;
+    } & DefaultSession["user"];
+  }
+}
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
   }
 }
