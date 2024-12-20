@@ -4,7 +4,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import Link from "next/link";
+import Link from "next/link";
 import { Group } from "@prisma/client";
 
 export default function GroupsPage() {
@@ -48,9 +48,10 @@ export default function GroupsPage() {
         <ul>
           {groups.map((group) => (
             <li key={group.id}>
-              {/* <Link href={`/groups/${group.id}`}>
-                <a>{group.name}</a>
-              </Link> */}
+              <Link href={`/groups/${group.id}`}
+                onClick={() => console.log(`Navigating to group: ${group.id}`)}>
+                {group.name}
+              </Link>
               <p>{group.description}</p>
             </li>
           ))}
